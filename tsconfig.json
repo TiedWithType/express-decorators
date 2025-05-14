@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ESnext",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "lib": ["esnext"]
+  }
+}
