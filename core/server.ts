@@ -13,8 +13,7 @@ export const Server = ({ port, onStart, childRoutes, useCors } = {}) => target =
   
   start() {
    this.server.use(express.json());
-   
-   useCors ?? this.server.use(cors())
+   if (useCors) this.server.use(cors())
   
    childRoutes?.forEach(route => {
     this.server.use(route.path, route.router)
