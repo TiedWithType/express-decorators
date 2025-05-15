@@ -8,7 +8,7 @@ export class HttpMethods {
  static createMethod = name => path =>
  (target, propertyKey, descriptor) => {
   Generator.Payload({
-   name: "methods",
+   name: Generator.Type.METHOD,
    target,
    value: {
     type: name.toLowerCase(),

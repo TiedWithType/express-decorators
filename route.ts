@@ -1,18 +1,29 @@
 import express from "express";
+import { Generator } from "./generator";
 
-export const Route = (path, props) => target => {
+export const Route = (path, { childRoutes } = {}) => target => {
  class ExpressRoute extends target {
   router = express.Router();
   
   constructor(...args) {
    super(...args);
+   
+   this.methods = Generator.get({
+    name: Generator.Type.METHOD,
+    target: this
+   });
+   
+   this.request = Generator.get({
+    name: Generator.Type.REQUEST,
+    target: this
+   })  
+   
    this.path = path;
    this.routeResolver();
   }
   
   argsResolver(request) {
-   return Array.from(this.request ?? [])
-   .reduce((array, {
+   return this.request.reduce((array, {
     type, name, index
    }) => {
     array[index] = (!name
@@ -29,8 +40,9 @@ export const Route = (path, props) => target => {
     response.json(result)
    }
    catch(error) { response.status(500).json({
-     name: error.name,
-     message: error.message,
+     err_name: error.name,
+     err_message: error.message,
+     stack: { args, path: request.originalUrl }
     }
    )}
   }
@@ -44,11 +56,11 @@ export const Route = (path, props) => target => {
   }
   
   routeResolver() {
-   ((props ?? {}).routes ?? []).forEach(route => {
+   childRoutes?.forEach(route => {
     this.router.use(route.path, route.router)
    });
    
-   Array.from(this.methods ?? []).map(method => {
+   this.methods.map(method => {
     this.subRouteResolver(method)
    });
   }

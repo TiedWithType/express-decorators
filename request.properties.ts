@@ -8,7 +8,7 @@ export class RequestProperties {
  static createProperty = name => identifier =>
  (target, propertyKey, propertyIndex) => {
   Generator.Payload({
-   name: "request",
+   name: Generator.Type.REQUEST,
    target,
    value: {
     type: name.toLowerCase(),
