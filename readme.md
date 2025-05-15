@@ -16,9 +16,9 @@ import { Server } from "./server";
 import { ApiRoute } from "./api.route";
 
 @Server({
- routes: [ ApiRoute ],
+ childRoutes: [ ApiRoute ],
+ useCors: true,
  port: 8000,
- // optional, use for custom start message
  onStart: (server) =>
  console.log(`Running at port: ${server.port}`)
 }) export class AppServer {}
