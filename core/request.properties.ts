@@ -13,7 +13,8 @@ export class RequestProperties {
    value: {
     type: name.toLowerCase(),
     name: identifier,
-    index: propertyIndex
+    index: propertyIndex,
+    key: propertyKey
    }
   })
  }

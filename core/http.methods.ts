@@ -14,6 +14,7 @@ export class HttpMethods {
     type: name.toLowerCase(),
     path: path,
     callback: descriptor.value,
+    key: propertyKey
    }
   })
  }

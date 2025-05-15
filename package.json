@@ -7,7 +7,9 @@
   "dev": "tsx watch ."
  },
  "dependencies": {
+  "cors": "^2.8.5",
   "express": "^5.1.0",
+  "json5": "^2.2.3",
   "tsx": "^4.19.4"
  }
 }

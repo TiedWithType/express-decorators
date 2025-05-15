@@ -6,6 +6,11 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "experimentalDecorators": true,
-    "lib": ["esnext"]
+    "lib": ["esnext"],
+    "baseUrl": ".", 
+    "paths": {
+      "@/*": ["./*"],
+      "@core/*": ["./core/*"]
+    }   
   }
 }

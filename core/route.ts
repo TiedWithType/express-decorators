@@ -22,8 +22,10 @@ export const Route = (path, { childRoutes } = {}) => target => {
    this.routeResolver();
   }
   
-  argsResolver(request) {
-   return this.request.reduce((array, {
+  argsResolver(key, request) {
+   return this.request
+   .filter(p => p.key === key)
+   .reduce((array, {
     type, name, index
    }) => {
     array[index] = (!name
@@ -32,11 +34,13 @@ export const Route = (path, { childRoutes } = {}) => target => {
    }, [])
   }
   
-  callbackResolver({callback, request, response}) {
-   let args = this.argsResolver(request);
-
+  async callbackResolver({key, request, response}) {
+   let args = this.argsResolver(key, request);
+   
+   console.log(args, key)
+   
    try {
-    let result = callback.apply(this, args);
+    let result = await this[key].apply(this, args);
     response.json(result)
    }
    catch(error) { response.status(500).json({
@@ -47,10 +51,10 @@ export const Route = (path, { childRoutes } = {}) => target => {
    )}
   }
   
-  subRouteResolver({callback, path, type}) {
-   this.router[type](path, (request, response) => {
-    this.callbackResolver({
-     callback, request, response
+  subRouteResolver({key, path, type}) {
+   this.router[type](path, async(request, response) => {
+    await this.callbackResolver({
+     key, request, response
     })
    })
   }
