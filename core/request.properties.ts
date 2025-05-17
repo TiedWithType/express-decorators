@@ -1,29 +1,12 @@
-import { Generator } from "./generator";
+import { DecoratorFactory } from "./decorator.factory";
+import { Generator } from './generator';
 
-export class RequestProperties {
- static methods = [
-  "Params", "Query", "Body"
- ];
- 
- static createProperty = name => identifier =>
- (target, propertyKey, propertyIndex) => {
-  Generator.Payload({
-   name: Generator.Type.REQUEST,
-   target,
-   value: {
-    type: name.toLowerCase(),
-    name: identifier,
-    index: propertyIndex,
-    key: propertyKey
-   }
-  })
- }
- 
- static get decorators() {
-  return this.methods.reduce((array, property) => {
-   array[property] = this.createProperty(property);
-   return array;
-  }, {})
+export class RequestProperties extends DecoratorFactory {
+ static config = {
+  payloadType: Generator.Type.REQUEST,
+  methods: [
+   "Params", "Query", "Body"
+  ]
  }
 }
 

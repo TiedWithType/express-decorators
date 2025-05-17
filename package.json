@@ -2,14 +2,12 @@
  "name": "express-decorators",
  "version": "1.0.0",
  "scripts": {
-  "dev": "tsx watch ./src/main.ts",
-  "build": "esbuild --platform=node src/main.ts --bundle --minify --outfile=server.js"
+  "dev": "npx tsx watch src/main.ts",
+  "build": "npx esbuild --platform=node src/main.ts --bundle --minify --outfile=dist/server.js"
  },
  "dependencies": {
   "cors": "^2.8.5",
   "express": "^5.1.0",
-  "json5": "^2.2.3",
-  "tsx": "^4.19.4",
-  "esbuild": "^0.25.4"
+  "json5": "^2.2.3"
  }
 }

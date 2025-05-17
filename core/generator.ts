@@ -1,16 +1,38 @@
+export interface MetaOptions {
+ target: Function;
+ name: symbol | string;
+ value: any;
+}
+
 export class Generator {
  static Type = {
-  REQUEST: Symbol("Request_Object"),
-  METHOD: Symbol("Methods"),
-  MIDDLEWARE: Symbol("Middleware_Object")
+  REQUEST: Symbol('REQUEST'),
+  METHOD: Symbol('METHOD'),
+  MIDDLEWARE: Symbol('MIDDLEWARE'),
+ };
+ 
+ static parseValue(value: any): any[] {
+  return Array.isArray(value)
+  ? [...value] : [value];
+ }
+
+ static get(options: MetaOptions): any[] {
+  const { target, name } = options;
+  const value = Reflect.get(target, name);
+  
+  return value ?? [];
  }
  
- static get({ target, name }) {
-  return Reflect.get(target ?? {}, name ?? "") ?? [];
+ static set(options: MetaOptions): void {
+  const { target, name, value } = options;
+  
+  Reflect.set(target, name, this.parseValue(value));
  }
- 
- static Payload({ target, name, value }) {
-  let prev = Generator.get({ target, name });
-  Reflect.set(target ?? {}, name, [...prev, value]);
+
+ static Payload(options: MetaOptions): void {
+  const { value } = options;
+  const prev = this.get(options);
+  
+  this.set({ ...options, value: [...prev, value] });
  }
 }

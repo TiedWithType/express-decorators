@@ -1,16 +1,16 @@
 {
-  "compilerOptions": {
-    "target": "ESnext",
-    "module": "esnext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "outDir": "./dist",
-    "experimentalDecorators": true,
-    "lib": ["esnext"],
-    "baseUrl": ".", 
-    "paths": {
-      "@/*": ["./*"],
-      "@core/*": ["./core/*"]
-    }   
+ "compilerOptions": {
+  "target": "ESNext",
+  "module": "ESNext",
+  "moduleResolution": "NodeNext",
+  "esModuleInterop": true,
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true,
+  "lib": [ "ESNext", "DOM", "Decorators" ],
+  "baseUrl": ".",
+  "paths": {
+   "@/*": ["./*"],
+   "@core/*": ["./core/*"]
   }
+ }
 }
